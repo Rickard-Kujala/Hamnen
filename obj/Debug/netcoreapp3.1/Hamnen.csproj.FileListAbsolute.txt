@@ -1,0 +1,13 @@
+C:\Users\kujar\source\repos\Hamnen\Hamnen\obj\Debug\netcoreapp3.1\Hamnen.csprojAssemblyReference.cache
+C:\Users\kujar\source\repos\Hamnen\Hamnen\obj\Debug\netcoreapp3.1\Hamnen.AssemblyInfoInputs.cache
+C:\Users\kujar\source\repos\Hamnen\Hamnen\obj\Debug\netcoreapp3.1\Hamnen.AssemblyInfo.cs
+C:\Users\kujar\source\repos\Hamnen\Hamnen\obj\Debug\netcoreapp3.1\Hamnen.csproj.CoreCompileInputs.cache
+C:\Users\kujar\source\repos\Hamnen\Hamnen\bin\Debug\netcoreapp3.1\Hamnen.exe
+C:\Users\kujar\source\repos\Hamnen\Hamnen\bin\Debug\netcoreapp3.1\Hamnen.deps.json
+C:\Users\kujar\source\repos\Hamnen\Hamnen\bin\Debug\netcoreapp3.1\Hamnen.runtimeconfig.json
+C:\Users\kujar\source\repos\Hamnen\Hamnen\bin\Debug\netcoreapp3.1\Hamnen.runtimeconfig.dev.json
+C:\Users\kujar\source\repos\Hamnen\Hamnen\bin\Debug\netcoreapp3.1\Hamnen.dll
+C:\Users\kujar\source\repos\Hamnen\Hamnen\bin\Debug\netcoreapp3.1\Hamnen.pdb
+C:\Users\kujar\source\repos\Hamnen\Hamnen\obj\Debug\netcoreapp3.1\Hamnen.dll
+C:\Users\kujar\source\repos\Hamnen\Hamnen\obj\Debug\netcoreapp3.1\Hamnen.pdb
+C:\Users\kujar\source\repos\Hamnen\Hamnen\obj\Debug\netcoreapp3.1\Hamnen.genruntimeconfig.cache
