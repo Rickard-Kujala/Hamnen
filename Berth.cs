@@ -10,6 +10,7 @@ namespace Hamnen
         public  bool IsEmpty { get; set; } = true;
         public static void Moor(List<Boat>boats, Berth[]docks)
         {
+            
             foreach (var boat in boats)
             {
                 if (boat is RowingBoat  )
