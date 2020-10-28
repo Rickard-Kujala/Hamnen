@@ -9,18 +9,20 @@ namespace Hamnen
         public int Weight { get; set; }
         public int Speed { get; set; }
         public int DaysLeftInTheDock { get; set; }
-        public bool HasLeftTheDock { get; set; }
         public int DockNumber { get; set; }
+        public int Size { get; set; }
+        public string Type { get; set; }
         public static  Random RandomValue = new Random();
 
-        public Boat(string id, int weight, int speed, int daysleftinthedock, bool hasleftthedock, int docknumber)
+        public Boat(string id, int weight, int speed, int daysleftinthedock, int docknumber, string type, int size)
         {
             ID = id;
             Weight = weight;
             Speed = speed;
             DaysLeftInTheDock = daysleftinthedock;
-            HasLeftTheDock = hasleftthedock;
             DockNumber = docknumber;
+            Type = type;
+            Size = size;
         }
         public static int GetRandomValue(int minValue, int maxValue)
         {
@@ -36,6 +38,11 @@ namespace Hamnen
                 ID += randomchar;
             }
             return ID;
+        }
+        public static int ConvertToKmPerHour(int knop)
+        {
+            int converted=knop * 1852;
+            return converted;
         }
 
 

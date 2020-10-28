@@ -8,71 +8,47 @@ namespace Hamnen
     {
         static void Main(string[] args)
         {
-            Berth berth = new Berth();
-            Berth[] Docks = new Berth[10];
-            
+            Berth[] Docks = new Berth[64];
             List<Boat> boats = new List<Boat>();
+
             while (true)
             {
+                Berth.Departure(Docks);
                 Berth.GenerateBoats(5,boats);
                 Berth.Moor(boats, Docks);
+                Berth.Print(Docks);
+                CountDown(Docks);
                 Console.ReadLine();
             }
-            
         }
-
-        //private static void printTheDock(Boat[,]dock/*, Boat b*/)
-        //{
-        //    int k = 1;
-        //    int l = 1;
-        //    for (int i = 0; i < 2; i++)
-        //    {
-        //        for (int j = 0; j < 10; j++)
-        //        {
-        //            if (dock[j, i] == null)
-        //            {
-        //                Console.Write("  tomt ");
-        //            }
-        //            else
-        //            {
-        //                Console.Write($" {b.ID} ");
-        //            }
-        //            k++;
-
-        //        }
-        //        Console.WriteLine();
-        //        l ++;
-        //    }
-        //}
-        private static void SearchForDockingspace(Boat[,] dock, Boat b)
+        static void CountDown(Berth[]docks)
         {
-            int k = 0;
-
-            for (int i = 0; i < 2; i++)
+            foreach (var boat in docks)
             {
-                for (int j = 0; j < 10; j++)
+                if (boat != null && boat.Lot[0] != null)
                 {
-                    if (dock[j,i]==null )
-                    {
-                        dock[j, i] = b;
-                    }
-                    
-                    k++;
+                    boat.Lot[0].DaysLeftInTheDock--;
                 }
-                Console.WriteLine();
+                if (boat != null && boat.Lot[1] != null)
+                {
+                    boat.Lot[1].DaysLeftInTheDock--;
+
+                }
+                //if (boat != null && boat.Lot[0]!=null && boat.Lot[0].DaysLeftInTheDock==0)
+                //{
+                //    boat.Lot[0] = null;
+                //    boat.IsEmpty=true;
+                //}
+                //if (boat != null && boat.Lot[1]!= null && boat.Lot[1].DaysLeftInTheDock == 0)
+                //{
+                //    boat.Lot[1] = null;
+                //    boat.IsEmpty = true;
+                //}
             }
         }
-        //static void GenerateBoats(Boat[,] dock)
-        //{
-        //    int i=Boat.GetRandomValue(1, 1);
-        //    switch (i)
-        //    {
-        //        case 1:
-        //           Boat b=RowingBoat.GenerateBoat();
-        //            SearchForDockingspace(dock, b);
-        //            break;
-
-        //    }
-        //}
+        static void CountDown()
+        {
+            
+        }
     }
 }
