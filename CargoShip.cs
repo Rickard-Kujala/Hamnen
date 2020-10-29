@@ -19,7 +19,7 @@ namespace Hamnen
             int speed = Boat.GetRandomValue(1, 20);
             speed = Boat.ConvertToKmPerHour(speed);
             int containers = Boat.GetRandomValue(0, 500);
-            CargoShip L = new CargoShip(ID, weight, speed, 6, 1, "Lastfartyg ", 4, containers);
+            CargoShip L = new CargoShip(ID, weight, speed, 6, 1, "Lastfartyg", 4, containers);
             return L;
         }
     }

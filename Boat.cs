@@ -41,7 +41,8 @@ namespace Hamnen
         }
         public static int ConvertToKmPerHour(int knop)
         {
-            int converted=knop * 1852;
+            double d= knop * 1.852;
+            int converted=Convert.ToInt32(d);
             return converted;
         }
 

@@ -1,0 +1,6 @@
+R-WKD;148;4;1;1;Roddbåt ;1;5
+S-WUX;4078;2;4;2;Segelbåt;2;14
+S-VYN;2232;17;1;14;Segelbåt;2;33
+S-QTV;4774;2;4;4;Segelbåt;2;59
+L-GTT;10101;11;6;6;Lastfartyg;4;380
+M-AHI;1303;15;3;10;Motorbåt;1;349
