@@ -1,6 +1,7 @@
-R-WKD;148;4;1;1;Roddbåt ;1;5
-S-WUX;4078;2;4;2;Segelbåt;2;14
-S-VYN;2232;17;1;14;Segelbåt;2;33
-S-QTV;4774;2;4;4;Segelbåt;2;59
-L-GTT;10101;11;6;6;Lastfartyg;4;380
-M-AHI;1303;15;3;10;Motorbåt;1;349
+L-XWE;13317;26;6;1;Lastfartyg;4;177
+M-BHD;2886;81;1;24;Motorbåt;1;981
+S-FFW;814;17;1;28;Segelbåt;2;44
+R-KFA;261;6;1;5;Roddbåt ;1;5
+L-WAQ;18076;17;6;6;Lastfartyg;4;362
+M-RFR;2677;96;3;10;Motorbåt;1;382
+L-HWD;4999;30;6;11;Lastfartyg;4;450

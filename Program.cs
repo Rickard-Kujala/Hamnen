@@ -80,7 +80,7 @@ namespace Hamnen
                             SailBoat s = new SailBoat(boatdata[0], int.Parse(boatdata[1]), int.Parse(boatdata[2]), int.Parse(boatdata[3]), int.Parse(boatdata[4]), boatdata[5], int.Parse(boatdata[6]), int.Parse(boatdata[7]));
                             docks[int.Parse(boatdata[6])].Lot[0] = s;
                             break;
-                        case 'C':
+                        case 'L':
                             CargoShip c = new CargoShip(boatdata[0], int.Parse(boatdata[1]), int.Parse(boatdata[2]), int.Parse(boatdata[3]), int.Parse(boatdata[4]), boatdata[5], int.Parse(boatdata[6]), int.Parse(boatdata[7]));
                             docks[int.Parse(boatdata[6])].Lot[0] = c;
                             break;
