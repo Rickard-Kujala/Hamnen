@@ -1,7 +1,21 @@
-L-XWE;13317;26;6;1;Lastfartyg;4;177
-M-BHD;2886;81;1;24;Motorbåt;1;981
-S-FFW;814;17;1;28;Segelbåt;2;44
-R-KFA;261;6;1;5;Roddbåt ;1;5
-L-WAQ;18076;17;6;6;Lastfartyg;4;362
-M-RFR;2677;96;3;10;Motorbåt;1;382
-L-HWD;4999;30;6;11;Lastfartyg;4;450
+L-QRC;19404;20;3;1;Lastfartyg;4;143
+S-EYS;1934;20;1;5;Segelbåt;2;22
+R-XHR;257;2;1;7;Roddbåt ;1;6
+R-QFT;170;6;1;7;Roddbåt ;1;3
+S-MEJ;2889;19;3;8;Segelbåt;2;41
+M-XWO;1475;74;1;10;Motorbåt;1;375
+L-PWB;19002;35;1;11;Lastfartyg;4;328
+S-SDQ;1244;13;2;15;Segelbåt;2;55
+M-YCJ;1141;15;1;17;Motorbåt;1;462
+M-TKD;1757;89;2;18;Motorbåt;1;494
+M-NOI;2548;30;2;19;Motorbåt;1;515
+S-JTY;3712;19;3;20;Segelbåt;2;54
+L-UQP;17581;6;4;22;Lastfartyg;4;370
+L-HNU;11136;4;4;26;Lastfartyg;4;277
+L-QGI;16970;37;2;30;Lastfartyg;4;55
+L-NFN;3196;11;5;34;Lastfartyg;4;260
+S-YMQ;5189;2;4;38;Segelbåt;2;53
+L-XVJ;11778;6;6;40;Lastfartyg;4;368
+M-QEY;2914;69;3;44;Motorbåt;1;250
+L-DEO;4274;2;2;47;Lastfartyg;4;270
+L-BXW;17666;24;2;51;Lastfartyg;4;60

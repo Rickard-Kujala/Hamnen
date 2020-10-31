@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace Hamnen
@@ -12,12 +11,6 @@ namespace Hamnen
         public bool IsEmpty { get; set; } = true;
         public static void Moor(List<Boat> boats, Berth[] docks)
         {
-            //for (int i = 0; i < docks.Length; i++)
-            //{
-            //    if (docks[i] is null)
-            //        docks[i] = new Berth();
-            //}
-
             foreach (var boat in boats)
             {
 
@@ -67,16 +60,7 @@ namespace Hamnen
         {
             for (int i = 0; i < docks.Length; i++)
             {
-                //if (boat != null && boat.Lot[0] != null && boat.Lot[0].DaysLeftInTheDock == 0)
-                //{
-                //    boat.Lot[0] = null;
-                //    boat.IsEmpty = true;
-                //}
-                //if (boat != null && boat.Lot[1] != null && boat.Lot[1].DaysLeftInTheDock == 0)
-                //{
-                //    boat.Lot[1] = null;
-                //    boat.IsEmpty = true;
-                //}
+
                 if (docks[i] != null && docks[i].Lot[0] != null && docks[i].IsEmpty == false && docks[i].Lot[0].DaysLeftInTheDock == 0)
                 {
                     SetToTrue(docks[i].Lot[0], docks, i);
@@ -102,98 +86,142 @@ namespace Hamnen
         public static void Print(Berth[] docks)
         {
             Console.Clear();
+            Console.WriteLine("[ENTER] simulate new day [Q] Quit\n");
             BoatInfo(docks);
-            //Console.WriteLine("Kajplats         ID          Vikt           Toppfart");
-            //for (int i = 0; i < docks.Length; i++)
-            //{
-            //    if (docks[i].IsEmpty == true)
-            //    {
-            //        // Console.WriteLine($"{i + 1}:");
-            //        Console.ForegroundColor = ConsoleColor.Green;
-            //        Console.WriteLine("Tomt_________");
-            //        Console.ForegroundColor = ConsoleColor.White;
 
-
-            //    }
-            //    else
-            //    {
-            //        // Console.WriteLine($"{i + 1}:");
-            //        Console.ForegroundColor = ConsoleColor.Red;
-            //        Console.WriteLine($"Upptaget\n________");
-            //        Console.ForegroundColor = ConsoleColor.White;
-            //        BoatInfo(docks);
-
-            //    }
-
-            //}
         }
-
         private static void BoatInfo(Berth[] docks)
         {
-            Console.WriteLine("Kajplats\t\tTyp av båt\t\tID\t\tVikt Kg\t\tToppfart Km/h\n");
+            List<Boat> boatPopulation = new List<Boat>();
 
-            List<Boat> boatPupulation = new List<Boat>();
             for (int i = 0; i < docks.Length; i++)
             {
                 if (docks[i].IsEmpty == false && docks[i].Lot[0] != null)
                 {
-                    boatPupulation.Add(docks[i].Lot[0]);
+                    boatPopulation.Add(docks[i].Lot[0]);
                 }
                 if (docks[i].IsEmpty == false && docks[i].Lot[1] != null)
                 {
-                    boatPupulation.Add(docks[i].Lot[1]);
+                    boatPopulation.Add(docks[i].Lot[1]);
 
                 }
-                if (docks[i].Lot[0] == null && docks[i].IsEmpty)
+                if (docks[i].IsEmpty == false && docks[i].Lot[0] == null)
                 {
-                    boatPupulation.Add(new EmptyBerth("", 0, 0, 0, i + 1, "Tomt", 0));
+                    boatPopulation.Add(new EmptyBerth("", 0, 0, 0, i + 1, "Upptaget", 0));
+
+                }
+                if (docks[i].IsEmpty  && docks[i].Lot[0] == null)
+                {
+                    boatPopulation.Add(new EmptyBerth("", 0, 0, 0, i + 1, "Tomt", 0));
 
                 }
             }
-            var q = boatPupulation
+            Docks(boatPopulation, docks);
+            Console.WriteLine("Kajplats\t\tTyp av båt\t\tID\t\tVikt Kg\t\tToppfart Km/h\n");
+
+            var q = boatPopulation
+                .Where(b => b.Type != "Tomt" && b.Type != "Upptaget")
                 .OrderBy(b => b.DockNumber);
             foreach (var Boat in q)
             {
-                Console.ForegroundColor = ConsoleColor.White;
-
-                if (Boat is EmptyBerth)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-
-                    Console.WriteLine($"{Boat.DockNumber}\t\t\t{Boat.Type}\t\t\t{Boat.ID}\t\t\t");
-
-                }
-                else
-                {
-
-                    Console.WriteLine($"{Boat.DockNumber}-{Boat.DockNumber + Boat.Size}\t\t\t{Boat.Type}\t\t{Boat.ID}\t\t{Boat.Weight}\t\t{Boat.Speed}\t\t{PrintUnicueProperty(Boat)}");
-                }
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine($"{Boat.DockNumber}-{Boat.DockNumber + Boat.Size}\t\t\t{Boat.Type}\t\t{Boat.ID}\t\t{Boat.Weight}\t\t{Boat.Speed}\t\t{PrintUnicueProperty(Boat)}");
 
             }
-            var q2 = boatPupulation
+            var q2 = boatPopulation
                 .Select(b => b.Weight)
                 .Sum();
-            Console.WriteLine($"Totalvikt: {q2}");
-            var q3 = boatPupulation
+            var q3 = boatPopulation
+                .Where(b=> b.ID != "")
                 .Select(b => b.Speed)
                 .Average();
-            var q4 = boatPupulation
+            var q4 = boatPopulation
+                .Where(b => b.Type == "Tomt" /*|| b.Type == "Upptaget"*/)
                 .GroupBy(b => b.Type);
+
             foreach (var boat in q4)
             {
-                if (boat.Key == "Tomt")
+                Console.WriteLine($"Tomma plater i hamnen: {boat.Count()}");
+            }
+
+            Console.WriteLine($"Totalvikt: {q2}");
+            Console.WriteLine($"Medelhastighet: {Math.Round(q3)} Km/h.");
+            Console.WriteLine($"Antal avvisade båtar: {RejectedBoats}");
+        }
+        private static void Docks(List<Boat> boatPopulation, Berth[] docks)
+        {
+            Console.Write("|");
+            for (int i = 0; i < docks.Length; i++)
+            {
+                if (i + 1 < 10)
                 {
-                    Console.WriteLine($"Tomma plater i hamnen: {boat.Count()}");
+                    Console.Write($"{i + 1} |");
+
                 }
                 else
                 {
-                    Console.WriteLine($"{boat.Count()} {boat.Key}");
+                    Console.Write($"{i + 1}|");
+
+                }
+
+            }
+            Console.WriteLine("|");
+
+            for (int i = 0; i < boatPopulation.Count; i++)
+            {
+                if (boatPopulation[i] is RowingBoat)
+                {
+                    if (boatPopulation[i] is RowingBoat && boatPopulation[i + 1] is RowingBoat/*i !=0 && boatPopulation[i-1] is RowingBoat*/)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("|RR");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        i++;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("|R ");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                }
+                if (boatPopulation[i] is SailBoat)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+
+                    Console.Write("|S ");
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                }
+                if (boatPopulation[i] is MotorBoat)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("|M ");
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                }
+                if (boatPopulation[i] is CargoShip)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("|L ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                if (boatPopulation[i] is EmptyBerth && boatPopulation[i].Type == "Tomt")
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("|  ");
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                }
+                if (boatPopulation[i] is EmptyBerth && boatPopulation[i].Type == "Upptaget")
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("|  ");
+                    Console.ForegroundColor = ConsoleColor.White;
 
                 }
             }
-            Console.WriteLine($"Medelhastighet: {Math.Round(q3)} Km/h.");
-            Console.WriteLine($"Antal avvisade båtar: {RejectedBoats}");
+            Console.WriteLine("|");
+
         }
         public static void FindBerth(Berth[] docks, Boat b)
         {
@@ -205,18 +233,11 @@ namespace Hamnen
 
                     i + 3 < docks.Length
                     && Multiply(b, docks, i)
-                    //&& docks[i].IsEmpty ==  true
-                    //&& docks[i + 1].IsEmpty == true
-                    //&& docks[i + 2].IsEmpty == true
                     && docks[i + 3].IsEmpty == false)
-
 
                 {
                     docks[i].Lot[0] = b;
                     SetToFalse(b, docks, i);
-                    //docks[i].IsEmpty = false;
-                    //docks[i + 1].IsEmpty = false;
-                    //docks[i + 2].IsEmpty = false;
                     b.DockNumber = i + 1;
                     rejected = false;
                     break;
@@ -226,45 +247,30 @@ namespace Hamnen
                 else if (
                     i + b.Size == docks.Length
                     && Multiply(b, docks, i)
-                    //&& docks[i].IsEmpty == true
-                    //&& docks[i + 1].IsEmpty == true
-                    //&& docks[i + 2].IsEmpty == true)
                     )
                 {
                     docks[i].Lot[0] = b;
                     SetToFalse(b, docks, i);
-                    //docks[i].IsEmpty = false;
-                    //docks[i + 1].IsEmpty = false;
-                    //docks[i + 2].IsEmpty = false;
                     b.DockNumber = i + 1;
                     rejected = false;
-
                     break;
                 }
                 else if (
                     i + b.Size < docks.Length && Multiply(b, docks, i)
 
-                    //&& docks[i].IsEmpty == true
-                    //&& docks[i + 1].IsEmpty == true
-                    //&& docks[i + 2].IsEmpty == true)
                     )
                 {
                     docks[i].Lot[0] = b;
-                    //docks[i].IsEmpty = false;
-                    //docks[i + 1].IsEmpty = false;
-                    //docks[i + 2].IsEmpty = false;
+
                     SetToFalse(b, docks, i);
                     b.DockNumber = i + 1;//Ändra till string $"{i}-{i+boat.size}"
                     rejected = false;
                     break;
                 }
-
-
             }
             if (rejected)
             {
                 Berth.RejectedBoats++;
-
             }
 
         }
@@ -299,8 +305,7 @@ namespace Hamnen
             string s = "";
             if (b is RowingBoat)
             {
-                 s =$"Rymmer {((RowingBoat)b).MaxPAssengers} Passagarare.";
-
+                s = $"Rymmer {((RowingBoat)b).MaxPAssengers} Passagarare.";
             }
             if (b is SailBoat)
             {
@@ -309,15 +314,12 @@ namespace Hamnen
             if (b is MotorBoat)
             {
                 s = $"Har {((MotorBoat)b).HP} Hästkrafter.";
-
             }
             if (b is CargoShip)
             {
                 s = $"Har {((CargoShip)b).NmbOfContainers} containers.";
-
             }
             return s;
-
         }
         public static int ReturnUnicueProperty(Boat b)
         {
@@ -328,16 +330,16 @@ namespace Hamnen
             }
             if (b is SailBoat)
             {
-                i =((SailBoat)b).Length;
+                i = ((SailBoat)b).Length;
             }
             if (b is MotorBoat)
             {
-                i =((MotorBoat)b).HP;
+                i = ((MotorBoat)b).HP;
 
             }
             if (b is CargoShip)
             {
-                i =((CargoShip)b).NmbOfContainers;
+                i = ((CargoShip)b).NmbOfContainers;
 
             }
             return i;
