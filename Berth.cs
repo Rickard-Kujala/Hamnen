@@ -9,32 +9,43 @@ namespace Hamnen
         public static int RejectedBoats = 0;
         public Boat[] Lot { get; set; } = new Boat[2];
         public bool IsEmpty { get; set; } = true;
-        public static void Moor(List<Boat> boats, Berth[] docks)
+        public static void Moor(List<Boat> boats, Berth[] docks, Berth[] docksTwo)
         {
             foreach (var boat in boats)
             {
-
                 if (boat is RowingBoat)
                 {
-                    RowingBoat.FindBerth(docks, boat);
+                    bool b=RowingBoat.FindBerth(docks, boat);
+                    if (b && boats.Count() > 0)
+                    {
+                        if (RowingBoat.FindBerth(docksTwo, boat))
+                        {
+                            RejectedBoats++;
+                        }
+                    }
                 }
                 else
                 {
-                    FindBerth(docks, boat);
+                   
+                    bool b=FindBerth(docks, boat);
+
+                    if (b && boats.Count()>0)
+                    {
+                        if (  FindBerth(docksTwo,boat)     )
+                        {
+                            RejectedBoats++;
+                        }
+
+                    }
                 }
             }
             boats.Clear();
         }
         public static void GenerateBoats(int numberOfBoats, List<Boat> boats, Berth[] docks)
         {
-            for (int i = 0; i < docks.Length; i++)
-            {
-                if (docks[i] is null)
-                    docks[i] = new Berth();
-            }
             for (int i = 0; i < numberOfBoats; i++)
             {
-                int TypeOfBoat = Boat.GetRandomValue(1, 4);
+                int TypeOfBoat = Boat.GetRandomValue(1, 5);
                 switch (TypeOfBoat)
                 {
                     case 1:
@@ -52,6 +63,10 @@ namespace Hamnen
                     case 4:
                         Boat l = CargoShip.Generate();
                         boats.Add(l);
+                        break;
+                    case 5:
+                        Boat k = Catamaran.Generate();
+                        boats.Add(k);
                         break;
                 }
             }
@@ -74,19 +89,18 @@ namespace Hamnen
             }
         }
 
-        private static void SetToTrue(Boat b, Berth[] docks, int j)
+        private static void SetToTrue(Boat b, Berth[] docks, int numberOfElements)
         {
             for (int i = 0; i < b.Size; i++)
             {
-                docks[j].IsEmpty = true;
-                j++;
+                docks[numberOfElements].IsEmpty = true;
+                numberOfElements++;
             }
         }
 
         public static void Print(Berth[] docks)
         {
-            Console.Clear();
-            Console.WriteLine("[ENTER] simulate new day [Q] Quit\n");
+            //Console.Clear();
             BoatInfo(docks);
 
         }
@@ -117,14 +131,23 @@ namespace Hamnen
                 }
             }
             Docks(boatPopulation, docks);
-            Console.WriteLine("Kajplats\t\tTyp av båt\t\tID\t\tVikt Kg\t\tToppfart Km/h\n");
+            Console.WriteLine("\nKajplats\t\t  Typ av båt\t\t  ID\t\t  Vikt Kg\t  Toppfart Km/h\t\t  Unik egenskap\n");
 
             var q = boatPopulation
                 .Where(b => b.Type != "Tomt" && b.Type != "Upptaget")
                 .OrderBy(b => b.DockNumber);
             foreach (var Boat in q)
             {
-                Console.WriteLine($"{Boat.DockNumber}-{Boat.DockNumber + Boat.Size}\t\t\t{Boat.Type}\t\t{Boat.ID}\t\t{Boat.Weight}\t\t{Boat.Speed}\t\t{PrintUnicueProperty(Boat)}");
+                if (Boat.Size >1)
+                {
+                    Console.WriteLine($"{Boat.DockNumber}-{Boat.DockNumber + Boat.Size-1}\t\t\t| {Boat.Type}\t\t| {Boat.ID}\t\t| {Boat.Weight}\t\t| {Boat.Speed}\t\t\t| {PrintUnicueProperty(Boat)}");
+
+                }
+                else
+                {
+                    Console.WriteLine($"{Boat.DockNumber}\t\t\t| {Boat.Type}\t\t| {Boat.ID}\t\t| {Boat.Weight}\t\t| {Boat.Speed}\t\t\t| {PrintUnicueProperty(Boat)}");
+
+                }
 
             }
             var q2 = boatPopulation
@@ -135,17 +158,34 @@ namespace Hamnen
                 .Select(b => b.Speed)
                 .Average();
             var q4 = boatPopulation
-                .Where(b => b.Type == "Tomt" /*|| b.Type == "Upptaget"*/)
+                .Where(b => b.Type == "Tomt")
                 .GroupBy(b => b.Type);
-
+            var q5 = boatPopulation
+                .Where(b => b.Type != "Tomt" && b.Type != "Upptaget" )
+                .GroupBy(b => b.Type)
+                .OrderByDescending(b=> b.Key);
+            Console.WriteLine("");
+           
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("\n" +
+                             "----------------------------------------" +
+                "\nNuvarande båtbestånd:\n");
+            foreach (var item in q5)
+            {
+                Console.WriteLine($"{item.Key} {item.Count()}");
+               
+            }
+            Console.WriteLine("---------------------------------------" +
+                "\nHamndata:\n");
             foreach (var boat in q4)
             {
                 Console.WriteLine($"Tomma plater i hamnen: {boat.Count()}");
             }
-
-            Console.WriteLine($"Totalvikt: {q2}");
+            Console.WriteLine($"Totalvikt i Hamnen: {q2} Kg");
             Console.WriteLine($"Medelhastighet: {Math.Round(q3)} Km/h.");
-            Console.WriteLine($"Antal avvisade båtar: {RejectedBoats}");
+            Console.WriteLine($"Antal avvisade båtar: {RejectedBoats}\n" +
+                            $"---------------------------------------");
+            Console.ResetColor();
         }
         private static void Docks(List<Boat> boatPopulation, Berth[] docks)
         {
@@ -223,7 +263,7 @@ namespace Hamnen
             Console.WriteLine("|");
 
         }
-        public static void FindBerth(Berth[] docks, Boat b)
+        public static bool FindBerth(Berth[] docks, Boat b)
         {
             bool rejected = true;
             for (int i = 0; i < docks.Length; i++)
@@ -270,9 +310,9 @@ namespace Hamnen
             }
             if (rejected)
             {
-                Berth.RejectedBoats++;
+                //Berth.RejectedBoats++;
             }
-
+            return rejected;
         }
         public static bool Multiply(Boat b, Berth[] docks, int j)
         {
@@ -318,6 +358,10 @@ namespace Hamnen
             if (b is CargoShip)
             {
                 s = $"Har {((CargoShip)b).NmbOfContainers} containers.";
+            }
+            if (b is Catamaran)
+            {
+                s = $"Har {((Catamaran)b).NmbrOfBeds} Bäddplatser..";
             }
             return s;
         }

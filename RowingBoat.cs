@@ -23,7 +23,7 @@ namespace Hamnen
             RowingBoat R = new RowingBoat(ID, weight, speed, 1, 1,"Roddbåt ", 1, passengers);
             return R;
         }
-        public static void FindBerth(Berth[]docks, Boat b)
+        public static bool FindBerth(Berth[]docks, Boat b)
         {
             bool rejected = true;
             for (int i = 0; i < docks.Length; i++)
@@ -47,8 +47,9 @@ namespace Hamnen
             }
             if (rejected)
             {
-                Berth.RejectedBoats++;
+                //Berth.RejectedBoats++;
             }
+            return rejected;
         }
         public static void Depart()
         {
