@@ -1,9 +1,4 @@
-L-FWE;18759;35;6;1;Lastfartyg;4;318
-L-GKT;9806;13;1;5;Lastfartyg;4;441
-L-LOP;19068;20;1;9;Lastfartyg;4;71
-L-LOD;17856;20;2;13;Lastfartyg;4;54
-S-USW;3911;20;3;17;Segelbåt;2;18
-L-JJI;3874;26;5;19;Lastfartyg;4;362
-L-CDF;14752;35;3;23;Lastfartyg;4;497
-L-OLX;6986;20;3;27;Lastfartyg;4;449
-S-SIO;4377;17;1;31;Segelbåt;2;20
+30;
+M-HPH;2031;81;-1;1;Motorbåt;1;185
+S-YON;2947;11;0;2;Segelbåt;2;12
+S-KEH;1569;22;1;4;Segelbåt;2;57

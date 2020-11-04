@@ -41,7 +41,7 @@ namespace Hamnen
             }
             boats.Clear();
         }
-        public static void GenerateBoats(int numberOfBoats, List<Boat> boats, Berth[] docks)
+        public static void GenerateNumberOfRandomBoats(int numberOfBoats, List<Boat> boats, Berth[] docks)
         {
             for (int i = 0; i < numberOfBoats; i++)
             {
@@ -70,6 +70,35 @@ namespace Hamnen
                         break;
                 }
             }
+        }
+        public static void GenerateTypeOfBoat( List<Boat> boats, Berth[] docks)
+        {
+            int typeOfBoat= Meny.GenerateTypeOfBoat();
+           
+                switch (typeOfBoat)
+                {
+                    case 0:
+                        Boat r = RowingBoat.Generate();
+                        boats.Add(r);
+                        break;
+                    case 1:
+                        Boat m = MotorBoat.Generate();
+                        boats.Add(m);
+                        break;
+                    case 2:
+                        Boat s = SailBoat.Generate();
+                        boats.Add(s);
+                        break;
+                    case 3:
+                        Boat l = CargoShip.Generate();
+                        boats.Add(l);
+                        break;
+                    case 4:
+                        Boat k = Catamaran.Generate();
+                        boats.Add(k);
+                        break;
+                }
+            
         }
         public static void Departure(Berth[] docks)
         {

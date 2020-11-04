@@ -18,20 +18,12 @@ namespace Hamnen
             Berth[] DockTwo = new Berth[32];
             List<Boat> boats = new List<Boat>();
             LoadOrNo(DockOne, fileName, DockTwo, fileName2);
-           
             bool isRunning = true;
             while (isRunning)
             {
-
                 Activity(DockOne, DockTwo);
-                Berth.GenerateBoats(5, boats, DockOne);
-
                 CountDown(DockOne);
                 CountDown(DockTwo);
-
-                Berth.Departure(DockOne);
-                Berth.Departure(DockTwo);
-                Berth.Moor(boats, DockOne, DockTwo);
 
                 ConsoleKey key = Console.ReadKey().Key;
 
@@ -40,12 +32,23 @@ namespace Hamnen
                     saveOrNo(DockOne, fileName, DockTwo, fileName2);
                     isRunning = false;
                 }
-
+                if (key==ConsoleKey.Enter)
+                {
+                    Berth.GenerateNumberOfRandomBoats(5, boats, DockOne);
+                }
+                if (key==ConsoleKey.B)
+                {
+                    Berth.GenerateTypeOfBoat(boats, DockOne);
+                }
+                Berth.Departure(DockOne);
+                Berth.Departure(DockTwo);
+                Berth.Moor(boats, DockOne, DockTwo);
             }
         }
         static void Activity(Berth[]docks, Berth[]docksTwo)
         {
             Console.Clear();
+            Console.WriteLine("[Enter] Generate 5 random boats, [B] Chose boat and generate, [Q] quit\n");
             List<Boat> boatPopulationOne = new List<Boat>();
             boatPopulationOne = Print.ArrayToList(docks);
 
@@ -93,6 +96,7 @@ namespace Hamnen
         {
             using (StreamWriter sw = new StreamWriter(filename, false))
             {
+                sw.WriteLine($"{Berth.RejectedBoats};");
                 foreach (var item in docks)
                 {
                     if (item.Lot[0] != null)
@@ -127,9 +131,15 @@ namespace Hamnen
         }
         static void Load(Berth[] docks, string fileName)
         {
+            int lineIndex = 0;
             foreach (var boat in File.ReadLines(fileName, System.Text.Encoding.UTF8))
             {
                 string[] boatdata = boat.Split(';');
+                if (lineIndex==0)
+                {
+                    Berth.RejectedBoats =int.Parse(boatdata[0]);
+                    lineIndex++;
+                }
 
                 switch (boatdata[0].First())
                 {
@@ -137,12 +147,15 @@ namespace Hamnen
                         RowingBoat r = new RowingBoat(boatdata[0], int.Parse(boatdata[1]), int.Parse(boatdata[2]), int.Parse(boatdata[3]), int.Parse(boatdata[4]), boatdata[5], int.Parse(boatdata[6]), int.Parse(boatdata[7]));
                         docks[int.Parse(boatdata[4])-1].Lot[0] = r;
                         docks[int.Parse(boatdata[4])-1].IsEmpty = false;
+                        lineIndex++;
                         break;
                     case 'M':
                         MotorBoat m = new MotorBoat(boatdata[0], int.Parse(boatdata[1]), int.Parse(boatdata[2]), int.Parse(boatdata[3]), int.Parse(boatdata[4]), boatdata[5], int.Parse(boatdata[6]), int.Parse(boatdata[7]));
                         docks[int.Parse(boatdata[4])-1].Lot[0] = m;
                         int j = int.Parse(boatdata[4])-1;
                         Berth.SetToFalse(m, docks, j);
+                        lineIndex++;
+
                         //docks[int.Parse(boatdata[4])].IsEmpty = false;
 
                         break;
@@ -152,6 +165,7 @@ namespace Hamnen
                         //docks[int.Parse(boatdata[4])].IsEmpty = false;
                         int k = int.Parse(boatdata[4])-1;
                         Berth.SetToFalse(s, docks, k);
+                        lineIndex++;
 
 
                         break;
@@ -169,6 +183,8 @@ namespace Hamnen
                         //docks[int.Parse(boatdata[4])].IsEmpty = false;
                         int n = int.Parse(boatdata[4]) - 1;
                         Berth.SetToFalse(kat, docks, n);
+                        lineIndex++;
+
                         break;
                 }
 

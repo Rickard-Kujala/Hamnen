@@ -1,12 +1,5 @@
-L-GDK;5736;30;6;1;Lastfartyg;4;482
-K-MNQ;5671;4;2;5;Katamaran;3;0
-S-TVR;4320;6;2;8;Segelbåt;2;44
-L-GBJ;11271;37;4;10;Lastfartyg;4;481
-S-RHL;2696;4;2;14;Segelbåt;2;30
-M-DLI;1107;17;1;16;Motorbåt;1;991
-L-PFN;8933;9;5;17;Lastfartyg;4;433
-L-CVJ;13814;35;2;21;Lastfartyg;4;39
-K-DBQ;4547;11;3;25;Katamaran;3;0
-M-KRT;2442;33;3;28;Motorbåt;1;426
-M-DSC;877;22;3;29;Motorbåt;1;767
-S-HFF;4600;6;3;30;Segelbåt;2;44
+30;
+M-EWA;2443;9;1;1;Motorbåt;1;569
+M-ASG;1037;17;0;2;Motorbåt;1;368
+S-NQL;2118;13;-1;3;Segelbåt;2;14
+R-KWH;116;6;-10;5;Roddbåt ;1;5
