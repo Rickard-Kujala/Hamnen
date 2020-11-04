@@ -157,7 +157,9 @@ namespace Hamnen
             var q5 = listOfAllBoats
                .Where(b => b.Type != "Tomt" && b.Type != "Upptaget")
                .GroupBy(b => b.Type)
-               .OrderByDescending(b => b.Key);
+               .OrderByDescending(b => b.Count());
+            Console.ForegroundColor = ConsoleColor.Gray;
+
             Console.WriteLine("");
             Console.WriteLine("\n" +
                              "----------------------------------------" +
@@ -167,7 +169,6 @@ namespace Hamnen
                 Console.WriteLine($"{item.Key} {item.Count()}");
 
             }
-            Console.ForegroundColor = ConsoleColor.Gray;
            
             Console.WriteLine("\n" +
                              "----------------------------------------" +

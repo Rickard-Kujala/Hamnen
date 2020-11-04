@@ -20,6 +20,7 @@ namespace Hamnen
             int speed = Boat.GetRandomValue(1, 12);
             speed=Boat.ConvertToKmPerHour(speed);
             int length = Boat.GetRandomValue(10, 60);
+            length = Boat.CenvertFeetToMeter(length);
             SailBoat S = new SailBoat(ID, weight, speed, 4, 1, "Segelbåt", 2, length);
             return S;
         }

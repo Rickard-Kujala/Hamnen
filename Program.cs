@@ -55,17 +55,18 @@ namespace Hamnen
             List<Boat> boatPopulationTwo = new List<Boat>();
             boatPopulationTwo = Print.ArrayToList(docksTwo);
 
-            Console.WriteLine("Första Kajen");
+            Console.WriteLine("Norra Kajen");
             Print.Docks(boatPopulationOne, docks);
-            Console.WriteLine("Andra Kajen");
+            Console.WriteLine("Södra Kajen");
 
             Print.Docks(boatPopulationTwo, docksTwo);
 
             Console.WriteLine("\nKajplats nr:\t\t  Typ av båt\t\t  ID\t\t  Vikt Kg\t  Toppfart Km/h\t\t  Unik egenskap\n");
-            Console.WriteLine("Norra kajen");
+            Console.WriteLine("Norra kajen\n");
 
             Print.BoatInfo(boatPopulationOne);
-            Console.WriteLine("Södra Kajen");
+            Console.WriteLine("");
+            Console.WriteLine("Södra Kajen\n");
             Print.BoatInfo(boatPopulationTwo);
 
 
@@ -153,7 +154,7 @@ namespace Hamnen
                         MotorBoat m = new MotorBoat(boatdata[0], int.Parse(boatdata[1]), int.Parse(boatdata[2]), int.Parse(boatdata[3]), int.Parse(boatdata[4]), boatdata[5], int.Parse(boatdata[6]), int.Parse(boatdata[7]));
                         docks[int.Parse(boatdata[4])-1].Lot[0] = m;
                         int j = int.Parse(boatdata[4])-1;
-                        Berth.SetToFalse(m, docks, j);
+                        Berth.SetNumberOfElementsToFalse(m, docks, j);
                         lineIndex++;
 
                         //docks[int.Parse(boatdata[4])].IsEmpty = false;
@@ -164,7 +165,7 @@ namespace Hamnen
                         docks[int.Parse(boatdata[4])-1].Lot[0] = s;
                         //docks[int.Parse(boatdata[4])].IsEmpty = false;
                         int k = int.Parse(boatdata[4])-1;
-                        Berth.SetToFalse(s, docks, k);
+                        Berth.SetNumberOfElementsToFalse(s, docks, k);
                         lineIndex++;
 
 
@@ -174,7 +175,7 @@ namespace Hamnen
                         docks[int.Parse(boatdata[4])-1].Lot[0] = c;
                         //docks[int.Parse(boatdata[4])].IsEmpty = false;
                         int l = int.Parse(boatdata[4])-1;
-                        Berth.SetToFalse(c, docks, l);
+                        Berth.SetNumberOfElementsToFalse(c, docks, l);
 
                         break;
                     case 'K':
@@ -182,7 +183,7 @@ namespace Hamnen
                         docks[int.Parse(boatdata[4]) - 1].Lot[0] = kat;
                         //docks[int.Parse(boatdata[4])].IsEmpty = false;
                         int n = int.Parse(boatdata[4]) - 1;
-                        Berth.SetToFalse(kat, docks, n);
+                        Berth.SetNumberOfElementsToFalse(kat, docks, n);
                         lineIndex++;
 
                         break;

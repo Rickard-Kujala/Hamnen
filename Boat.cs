@@ -12,7 +12,7 @@ namespace Hamnen
         public int DockNumber { get; set; }
         public int Size { get; set; }
         public string Type { get; set; }
-        public static  Random RandomValue = new Random();
+        public static Random RandomValue = new Random();
 
         public Boat(string id, int weight, int speed, int daysleftinthedock, int docknumber, string type, int size)
         {
@@ -26,8 +26,8 @@ namespace Hamnen
         }
         public static int GetRandomValue(int minValue, int maxValue)
         {
-            int i = RandomValue.Next(minValue, maxValue+1);
-            return i; 
+            int i = RandomValue.Next(minValue, maxValue + 1);
+            return i;
         }
         public static string GetID(string type)
         {
@@ -41,10 +41,17 @@ namespace Hamnen
         }
         public static int ConvertToKmPerHour(int knop)
         {
-            double d= knop * 1.852;
-            int converted=Convert.ToInt32(d);
-            return converted;
+            double d = knop * 1.852;
+            int convertedToKmPerHour = Convert.ToInt32(d);
+            return convertedToKmPerHour;
         }
+        public static int CenvertFeetToMeter(int feet)
+        {
+            double d=feet/3.2808;
+            int convertedToMeters = Convert.ToInt32(d);
+            return convertedToMeters;
+        }
+            
 
 
     }
